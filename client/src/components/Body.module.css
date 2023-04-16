@@ -1,0 +1,9 @@
+.container {
+    margin: 5vh auto;
+    width: 80vw;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+}
