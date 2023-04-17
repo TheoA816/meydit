@@ -1,7 +1,7 @@
 import { FaPlus } from "react-icons/fa"
-import styles from './AddQuote.module.css';
+import styles from './AddJob.module.css';
 
-const AddQuote = () => {
+const AddJob = () => {
 
   return (
     <div className={styles.container}>
@@ -11,4 +11,4 @@ const AddQuote = () => {
   )
 }
 
-export default AddQuote
+export default AddJob

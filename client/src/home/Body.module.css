@@ -4,6 +4,13 @@
 }
 
 .options {
+    margin-bottom: 10vh;
+
     display: flex;
     justify-content: space-between;
+}
+
+.jobsboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
