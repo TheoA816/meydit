@@ -21,6 +21,10 @@ const Body = () => {
         <JobCard/>
         <JobCard/>
         <JobCard/>
+        <JobCard/>
+        <JobCard/>
+        <JobCard/>
+        <JobCard/>
       </div>
 
     </div>
