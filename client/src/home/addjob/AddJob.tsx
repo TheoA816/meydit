@@ -1,16 +1,20 @@
 import { FaPlus } from "react-icons/fa"
 import styles from './AddJob.module.css';
-import { useEffect, useState } from "react";
+import { Ref, useEffect, useRef, useState } from "react";
 import { TextField, InputAdornment, Button } from '@mui/material';
 
 const AddJob = () => {
 
   const [showPanel, setShowPanel] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null!);
 
-  // useEffect(() => {
-  //   if (showPanel) document.body.style.overflow = 'hidden';
-  //   else document.body.style.overflow = 'auto';
-  // }, [showPanel])
+  useEffect(() => {
+    const clickOutside = (e: Event) => {
+      if (panelRef.current && !panelRef.current.contains(e.target as Node)) setShowPanel(false);
+    }
+    document.addEventListener("mousedown", clickOutside);
+    return () =>  document.removeEventListener("mousedown", clickOutside);
+  }, [panelRef]);
 
   return (
     <>
@@ -21,7 +25,7 @@ const AddJob = () => {
 
       { showPanel && 
         <div className={styles.panelBg}>
-          <div className={styles.panelContainer}>
+          <div ref={panelRef} className={styles.panelContainer}>
 
             {/* HEADING */}
             <span className={styles.heading}>Fill this form out to put out a new job order!</span>
