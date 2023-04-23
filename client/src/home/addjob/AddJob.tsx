@@ -2,6 +2,7 @@ import { FaPlus } from "react-icons/fa"
 import styles from './AddJob.module.css';
 import { Ref, useEffect, useRef, useState } from "react";
 import { TextField, InputAdornment, Button } from '@mui/material';
+import ImageUpload from "../../helpers/ImageUpload";
 
 const AddJob = () => {
 
@@ -32,11 +33,14 @@ const AddJob = () => {
 
             {/* BOX */}
             <div className={styles.order}>
-              <div className={styles.img}></div>
+              <div className={styles.img}>
+                <ImageUpload/>
+              </div>
 
               {/* ORDER FIELDS */}
               <div className={styles.orderDetails}>
                 <TextField className={styles.textField} label="Clothing Type" variant="outlined" required size="small" />
+                <TextField className={styles.textField} label="Material Wanted" variant="outlined" required size="small" />
                 <TextField className={styles.textField} label="Budget" variant="outlined" size="small"
                   InputProps={{
                     startAdornment: <InputAdornment position="start">$</InputAdornment>,
@@ -47,7 +51,7 @@ const AddJob = () => {
                 {/* CONTACT FIELDS */}
                 <div className={styles.contact}>
                   <span className={styles.heading}>Contact</span>
-                  <TextField className={styles.textField} label="Street Address" variant="outlined" required size="small" />
+                  <TextField className={styles.textField} label="Email / Phone" variant="outlined" required size="small" />
                   <TextField className={styles.textField} label="City" variant="outlined" required size="small" />
                   <TextField className={styles.textField} label="Country" variant="outlined" required size="small" />
                   <TextField className={styles.textField} label="Zip Code" variant="outlined" required size="small" />
