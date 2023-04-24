@@ -1,4 +1,4 @@
-import { BaseModel, HasOne, column, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
 
 export default class Job extends BaseModel {
@@ -20,11 +20,14 @@ export default class Job extends BaseModel {
   @column()
   public descr: string
 
-  @hasOne(() => User, {
-    foreignKey: 'id',
-  })
-  public contact: HasOne<typeof User>
+  @column()
+  public contact: number
 
   @column()
   public addr: number
+
+  @belongsTo(() => User, {
+    foreignKey: 'contact',
+  })
+  public user: BelongsTo<typeof User>
 }

@@ -1,7 +1,7 @@
 import Route from '@ioc:Adonis/Core/Route'
 import { schema } from '@ioc:Adonis/Core/Validator'
+import User from 'App/Models/Contact';
 import Job from 'App/Models/Job';
-import User from 'App/Models/User';
 
 const jobSchema = schema.create({
   id: schema.number.optional(),
@@ -14,8 +14,13 @@ const jobSchema = schema.create({
   addr: schema.number(),
 })
 
-Route.post('/user/addjob', async ({ request }) => {
+Route.post('/user/addjob', async ({ request, response }) => {
   const payload = await request.validate({ schema: jobSchema });
+  const contact = await User.findBy('id', payload.contact);
+  if (contact === null) {
+    response.status(400).send("Error - Job has no contact person, creator undefined");
+    return;
+  }
   await Job.create(payload);
 }).middleware('auth');
 
