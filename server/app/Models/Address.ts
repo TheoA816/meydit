@@ -1,7 +1,8 @@
-import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Address extends BaseModel {
+  public static table = "addrs"
+
   @column({ isPrimary: true })
   public id: number
 
@@ -15,5 +16,5 @@ export default class Address extends BaseModel {
   public country : string
 
   @column()
-  public zip : number
+  public zipcode : number
 }
