@@ -19,9 +19,9 @@
 */
 
 import './routes/auth';
-import './routes/addJob';
-import './routes/addQuote';
-import './routes/addAddr';
+import './routes/job';
+import './routes/quote';
+import './routes/addr';
 
 import Route from '@ioc:Adonis/Core/Route'
 

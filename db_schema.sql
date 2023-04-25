@@ -15,7 +15,6 @@ CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     email TEXT NOT NULL,
     phone TEXT,
-    password TEXT NOT NULL,
     addr INT,
     FOREIGN KEY (addr) references addrs (id)
 );

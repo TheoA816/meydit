@@ -1,6 +1,7 @@
 import Home from './home/Home'
 import Job from './job/Job'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Login from './login/Login';
 
 function App() {
 
@@ -10,7 +11,11 @@ function App() {
       element: <Home />,
     },
     {
-      path: "job",
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/job",
       element: <Job />,
     },
   ])
