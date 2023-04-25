@@ -12,6 +12,9 @@ export default class User extends BaseModel {
   public phone: string
 
   @column()
+  public accessToken: string
+
+  @column()
   public addr: number
 
   @hasMany(() => Job, {

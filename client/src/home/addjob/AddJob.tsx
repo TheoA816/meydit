@@ -1,14 +1,45 @@
 import { FaPlus } from "react-icons/fa"
 import styles from './AddJob.module.css';
-import { Ref, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TextField, InputAdornment, Button } from '@mui/material';
 import ImageUpload from "../../helpers/ImageUpload";
+import { Job } from "../../../interfaces";
+import axios from "../../config/axios";
 
 const AddJob = () => {
 
   const [showPanel, setShowPanel] = useState(false);
-  const panelRef = useRef<HTMLDivElement>(null!);
+  const panelRef = useRef<HTMLFormElement>(null!);
 
+  // param for submit call
+  const [order, setOrder] = useState({
+    clothing: '',
+    material: '',
+    budget: 0,
+    descr: '',
+    contact: 0,
+  });
+  const [addr, setAddr] = useState({
+    city: '',
+    country: '',
+    state: '',
+    zipcode: 0
+  })
+
+  // change inputs based on text value
+  const handleOrder = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setOrder((values) => ({ ...values, [name]: value }));
+  };
+
+  const handleAddr = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setAddr((values) => ({ ...values, [name]: value }));
+  };
+
+  // close panel by clicking outside
   useEffect(() => {
     const clickOutside = (e: Event) => {
       if (panelRef.current && !panelRef.current.contains(e.target as Node)) setShowPanel(false);
@@ -16,6 +47,13 @@ const AddJob = () => {
     document.addEventListener("mousedown", clickOutside);
     return () =>  document.removeEventListener("mousedown", clickOutside);
   }, [panelRef]);
+
+  // submit api call - add job
+  const pushJob = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const params: Job = { ...order, addr: addr };
+    await axios.post('/user/addjob', { params: params });
+  }
 
   return (
     <>
@@ -26,7 +64,7 @@ const AddJob = () => {
 
       { showPanel && 
         <div className={styles.panelBg}>
-          <div ref={panelRef} className={styles.panelContainer}>
+          <form ref={panelRef} className={styles.panelContainer} onSubmit={pushJob}>
 
             {/* HEADING */}
             <span className={styles.heading}>Fill this form out to put out a new job order!</span>
@@ -39,32 +77,39 @@ const AddJob = () => {
 
               {/* ORDER FIELDS */}
               <div className={styles.orderDetails}>
-                <TextField className={styles.textField} label="Clothing Type" variant="outlined" required size="small" />
-                <TextField className={styles.textField} label="Material Wanted" variant="outlined" required size="small" />
+                <TextField className={styles.textField} label="Clothing Type" variant="outlined" required size="small" 
+                           name="clothing" value={order.clothing} onChange={handleOrder} />
+                <TextField className={styles.textField} label="Material Wanted" variant="outlined" required size="small" 
+                           name="material" value={order.material} onChange={handleOrder} />
                 <TextField className={styles.textField} label="Budget" variant="outlined" size="small"
+                           name="budget" value={order.budget}  onChange={handleOrder}
                   InputProps={{
                     startAdornment: <InputAdornment position="start">$</InputAdornment>,
                   }}
                 />
-                <TextField className={styles.textField} label="No. of Clothing" type="number" variant="outlined" required size="small" />
 
                 {/* CONTACT FIELDS */}
                 <div className={styles.contact}>
                   <span className={styles.heading}>Contact</span>
-                  <TextField className={styles.textField} label="Email / Phone" variant="outlined" required size="small" />
-                  <TextField className={styles.textField} label="City" variant="outlined" required size="small" />
-                  <TextField className={styles.textField} label="Country" variant="outlined" required size="small" />
-                  <TextField className={styles.textField} label="Zip Code" variant="outlined" required size="small" />
+                  <TextField className={styles.textField} label="City" variant="outlined" required size="small"
+                             name="city" value={addr.city} onChange={handleAddr} />
+                  <TextField className={styles.textField} label="State" variant="outlined" required size="small"
+                             name="state" value={addr.state} onChange={handleAddr}/>
+                  <TextField className={styles.textField} label="Country" variant="outlined" required size="small"
+                             name="country" value={addr.country} onChange={handleAddr}/>
+                  <TextField className={styles.textField} label="Zip Code" variant="outlined" required size="small"
+                             name="zipcode" value={addr.zipcode} onChange={handleAddr}/>
                 </div>
               </div>
             </div>
 
             {/* DESCRIPTION */}
-            <TextField style={{ width: '100%' }} label="Description" multiline rows={4} 
-              defaultValue="Put any other additional information here! Be as descriptive as you want"
+            <TextField style={{ width: '100%' }} label="Description" multiline rows={4}
+              placeholder="Put any other additional information here! Be as descriptive as you want"
+              name="descr" value={order.descr} onChange={handleOrder}
             />
-            <Button style={{ width: '100%', margin: '1em 0' }} variant="outlined">Push out job</Button>
-          </div>
+            <Button style={{ width: '100%', margin: '1em 0' }} variant="outlined" type="submit">Push out job</Button>
+          </form>
         </div>
       }
     </>

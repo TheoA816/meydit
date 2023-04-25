@@ -37,18 +37,22 @@ const Home = () => {
       <div className={styles.container}>
 
         {/* Search Header */}
-        <div className={styles.options}>
+        <div className={styles.search}>
           <Search/>
           <AddJob/>
         </div>
 
         {/* Jobs */}
-        <div className={styles.jobsboard}>
-          {/* map data into job */}
-          {jobs.map((job) => (
-            <JobCard city={job.addr.city} clothing={job.clothing} key={job.id}/>
-          ))}
-        </div>
+        {jobs.length !== 0 ?
+          <div className={styles.jobsboard}>
+            {/* map data into job */}
+            {jobs.map((job) => (
+              <JobCard city={job.addr.city} clothing={job.clothing} key={job.id}/>
+            ))}
+          </div>
+        :
+          <div className={styles.err}>No Jobs Found</div>
+        }
 
         {/* Page directory */}
       </div>

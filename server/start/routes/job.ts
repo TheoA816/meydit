@@ -80,9 +80,9 @@ Route.post('/user/editjob', async ({ auth, request, response }) => {
   await Job.updateOrCreate({ id: payload.id }, { ...payload, addr: res.addr });
 }).middleware('auth');
 
-Route.get('/getjobs', async ({ request }) => {
+Route.get('/getjobs', async ({ request, session }) => {
   const page = parseInt(request.input('page'));
-  console.log(page)
+  console.log(session.fresh)
   const jobsOnPage = await Job.query()
                               .offset(page * 9)
                               .limit(9)

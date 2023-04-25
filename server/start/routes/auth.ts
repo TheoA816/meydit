@@ -10,11 +10,11 @@ import User from 'App/Models/User'
 //   rememberMeToken: schema.string.optional()
 // })
 
-Route.get('login', async ({ ally }) => {
+Route.get('/login', async ({ ally }) => {
   return ally.use('google').redirectUrl();
 })
 
-Route.get('/google-callback', async ({ ally, auth, response }) => {
+Route.get('/google-callback', async ({ ally, auth, response, session }) => {
   const google = ally.use('google');
   
   // errors
@@ -35,8 +35,10 @@ Route.get('/google-callback', async ({ ally, auth, response }) => {
   const googleUser = await google.user();
   const user = await User.firstOrCreate({
     email: googleUser.email!,
+  }, {
+    accessToken: googleUser.token.token
   })
-  console.log(googleUser.token);
   await auth.use('web').login(user);
+  console.log(session.fresh)
   return response.redirect('http://localhost:5173');
 })
