@@ -6,7 +6,8 @@ import axios from '../config/axios'
 const Login = () => {
 
   const loginRedirect = async () => {
-    await axios.get('/login');
+    const googleUrl = await axios.get('/login');
+    window.location.href = googleUrl.data;
   }
 
   return (

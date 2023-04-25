@@ -10,8 +10,8 @@ import User from 'App/Models/User'
 //   rememberMeToken: schema.string.optional()
 // })
 
-Route.get('/google/redirect', async ({ ally }) => {
-  return ally.use('google').redirect();
+Route.get('login', async ({ ally }) => {
+  return ally.use('google').redirectUrl();
 })
 
 Route.get('/google-callback', async ({ ally, auth, response }) => {
@@ -36,6 +36,7 @@ Route.get('/google-callback', async ({ ally, auth, response }) => {
   const user = await User.firstOrCreate({
     email: googleUser.email!,
   })
-  console.log(user);
+  console.log(googleUser.token);
   await auth.use('web').login(user);
+  return response.redirect('http://localhost:5173');
 })

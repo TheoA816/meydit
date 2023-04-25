@@ -1,5 +1,5 @@
 .container {
-    min-height: 20vh;
+    height: 200px;
     margin: 2vh 2.5%;
 
     box-sizing: border-box;

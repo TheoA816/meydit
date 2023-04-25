@@ -27,4 +27,9 @@ Route.post('user/addaddr', async ({ request, response }) => {
   }
   const newAddr = await Address.create(payload);
   response.status(200).send(newAddr.id);
-}).middleware('auth');
+}).middleware('auth')
+
+Route.get('/getaddr', async ({ request }) => {
+  let addr = await Address.findBy('id', request.input('id'));
+  return addr;
+});

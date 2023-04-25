@@ -79,3 +79,12 @@ Route.post('/user/editjob', async ({ auth, request, response }) => {
   // update job
   await Job.updateOrCreate({ id: payload.id }, { ...payload, addr: res.addr });
 }).middleware('auth');
+
+Route.get('/getjobs', async ({ request }) => {
+  const page = parseInt(request.input('page'));
+  console.log(page)
+  const jobsOnPage = await Job.query()
+                              .offset(page * 9)
+                              .limit(9)
+  return jobsOnPage;
+})
