@@ -12,17 +12,19 @@ const addrSchema = schema.create({
 
 /**
  * @precondition - all place names are lowercase
+ * @returns - id of address
  */
 Route.post('user/addaddr', async ({ request, response }) => {
   const payload = await request.validate({ schema: addrSchema });
-  const addr = await Address.query()
+  let addr = await Address.query()
                       .where('city', payload.city)
                       .where('state', payload.state)
                       .where('country', payload.country)
                       .where('zipcode', payload.zipcode)
   if (addr.length !== 0) {
-    response.status(200).send("Not added - address already exists");
+    response.status(200).send(addr[0].id);
     return;
   }
-  await Address.create(payload);
+  const newAddr = await Address.create(payload);
+  response.status(200).send(newAddr.id);
 }).middleware('auth');

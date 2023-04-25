@@ -31,14 +31,21 @@ const payloadCheck = async (payload, auth) => {
   if (contact === null || contact.id !== auth.user?.id) {
     return { err: "Error - Job has no contact person, creator undefined" };
   }
-  // add addr if not exist
-  let addr = await Address.findBy('id', payload.addr.id || -1);
-  if (addr === null) {
-    const { default: got } = await import('got');
-    await got.post('http://127.0.0.1:3333/user/addaddr', { json: payload.addr });
-    addr = await Address.findBy('id', payload.addr.id);
+
+  // check addr exist
+  const addr = payload.addr;
+  const matchingAddr = await Address.query()
+                      .where('city', addr.city)
+                      .where('state', addr.state)
+                      .where('country', addr.country)
+                      .where('zipcode', addr.zipcode)
+  if (matchingAddr.length !== 0) {
+    return { addr: matchingAddr[0].id };
   }
-  return { addr: addr?.id };
+
+  // add new addr
+  const newAddr = await Address.create(addr);
+  return { addr: newAddr.id };
 }
 
 Route.post('/user/addjob', async ({ auth, request, response }) => {
@@ -57,10 +64,11 @@ Route.post('/user/addjob', async ({ auth, request, response }) => {
 
 Route.post('/user/editjob', async ({ auth, request, response }) => {
   const payload = await request.validate({ schema: jobSchema });
-
   // check job exists
-  if (await Job.findBy('id', request.id) === null) response.status(400).send("Job does not exist");
-
+  if (await Job.findBy('id', payload.id) === null) {
+    response.status(400).send("Job does not exist");
+    return;
+  }
   // job check
   const res = await payloadCheck(payload, auth);
   if (res.err) {
