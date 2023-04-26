@@ -3,6 +3,7 @@ export interface Job {
   clothing: string,
   material: string,
   budget?: number,
+  images: string[],
   descr?: string,
   contact: number,
   addr: {
@@ -12,4 +13,9 @@ export interface Job {
     state: string,
     zipcode: number
   }
+}
+
+export interface myFile {
+  file: File
+  url: string
 }

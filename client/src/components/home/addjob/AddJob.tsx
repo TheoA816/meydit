@@ -2,8 +2,8 @@ import { FaPlus } from "react-icons/fa"
 import styles from './AddJob.module.css';
 import { useEffect, useRef, useState } from "react";
 import { TextField, InputAdornment, Button } from '@mui/material';
-import ImageUpload from "../../helpers/ImageUpload";
-import { Job } from "../../../../interfaces";
+import ImageUpload from "../../image/ImageUpload";
+import { Job, myFile } from "../../../../interfaces";
 import axios from "../../../config/axios";
 import { useAuth } from "../../../context/AuthProvider";
 import { useNavigate, useParams } from "react-router-dom";
@@ -29,6 +29,7 @@ const AddJob = () => {
     state: '',
     zipcode: 0
   })
+  const [files, setFiles] = useState<myFile[]>([]);
 
   // change inputs based on text value
   const handleOrder = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +59,7 @@ const AddJob = () => {
     // if not logged in - redirect login
     if (user?.id! <= 0) return navigate('/login');
     // add job
-    const params: Job = { ...order, addr: addr };
+    const params: Job = { ...order, addr: addr, images: files.map((file) => file.url) };
     await axios.post('/user/addjob', params);
     // reload page
     window.location.reload();
@@ -81,7 +82,7 @@ const AddJob = () => {
             {/* BOX */}
             <div className={styles.order}>
               <div className={styles.img}>
-                <ImageUpload/>
+                <ImageUpload files={files} setFiles={setFiles}/>
               </div>
 
               {/* ORDER FIELDS */}

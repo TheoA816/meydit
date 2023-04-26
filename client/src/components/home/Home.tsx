@@ -8,29 +8,12 @@ import { useEffect } from 'react';
 import { useAuth } from '../../context/AuthProvider';
 import axios from '../../config/axios';
 import Pages from './pages/Pages';
-
-interface Job {
-  id: number,
-  clothing: string,
-  material: string,
-  budget: number,
-  count: number,
-  descr: string,
-  contact: number,
-  addr: {
-    id: number,
-    city: string,
-    country: string,
-    state: string,
-    zipcode: number
-  }
-}
+import { Job } from '../../../interfaces';
 
 const Home = () => {
 
   const jobs: Job[] = useLoaderData() as Job[];
   const { user, setUser } = useAuth();
-  console.log(user)
 
   useEffect(() => {
     const checkLogin = async () => {
@@ -61,7 +44,7 @@ const Home = () => {
           <div className={styles.jobsboard}>
             {/* map data into job */}
             {jobs.map((job) => (
-              <JobCard city={job.addr.city} clothing={job.clothing} key={job.id}/>
+              <JobCard job={job} key={job.id}/>
             ))}
           </div>
         :

@@ -9,6 +9,7 @@ const jobSchema = schema.create({
   material: schema.string(),
   budget: schema.number.optional(),
   count: schema.number.optional(),
+  images: schema.array.optional().members(schema.string()),
   descr: schema.string.optional(),
   contact: schema.number(),
   addr: schema.object().members({
@@ -41,15 +42,20 @@ const checkAddr = async (payload) => {
   return { addr: newAddr.id };
 }
 
+Route.get('/getjob', async ({ request }) => {
+  // create job
+  const job = await Job.findBy('id', request.param('id'));
+  return job;
+}).middleware('auth');
+
 Route.post('/user/addjob', async ({ auth, request, response }) => {
   const payload = await request.validate({ schema: jobSchema });
-
   // payload check
   const res = await checkAddr(payload);
   // create job
-  await Job.create({ ...payload, addr: res.addr });
+  await Job.create({ ...payload, addr: res.addr, contact: auth.user?.id });
   return response.send({ mssg: "Success!" });
-})
+}).middleware('auth');
 
 Route.post('/user/editjob', async ({ auth, request, response }) => {
   const payload = await request.validate({ schema: jobSchema });
@@ -60,7 +66,6 @@ Route.post('/user/editjob', async ({ auth, request, response }) => {
   }
   // job check
   const res = await checkAddr(payload);
-
   // update job
   await Job.updateOrCreate({ id: payload.id }, { ...payload, addr: res.addr, contact: auth.user?.id });
   return response.send({ mssg: "Success!" });

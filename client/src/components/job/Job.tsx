@@ -1,7 +1,7 @@
 import styles from './Job.module.css'
 import Customer from './Customer'
 import Order from './Order'
-import ImageUpload from '../helpers/ImageUpload'
+import ImageUpload from '../image/ImageUpload'
 import QuoteCard from './quote/QuoteCard'
 import { FaPlus } from 'react-icons/fa'
 import AddQuote from './addquote/AddQuote'
@@ -15,7 +15,7 @@ const Job = () => {
     <div className={styles.jobContainer}>
       {/* IMAGE */}
       <div className={styles.img}>
-        <ImageUpload/>
+        {/* <ImageUpload/> */}IMAGE
       </div>
       {/* DETAILS */}
       <div className={styles.details}>

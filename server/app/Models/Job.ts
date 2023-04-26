@@ -15,6 +15,9 @@ export default class Job extends BaseModel {
   public budget: number
 
   @column()
+  public images: string[]
+
+  @column()
   public count: number
 
   @column()
