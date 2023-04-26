@@ -1,5 +1,5 @@
 import styles from './QuoteCard.module.css'
-import Img from '../../assets/timetable.png'
+import Img from '../../../assets/timetable.png'
 
 const QuoteCard = () => {
 

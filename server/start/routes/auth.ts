@@ -1,20 +1,29 @@
 import Route from '@ioc:Adonis/Core/Route'
 import User from 'App/Models/User'
-// import { schema } from '@ioc:Adonis/Core/Validator'
 
-// const userSchema = schema.create({
-//   email: schema.string(),
-//   password: schema.string(),
-//   phone: schema.string.optional(),
-//   addr: schema.number.optional(),
-//   rememberMeToken: schema.string.optional()
-// })
+Route.get('/isloggedin', async({ auth }) => {
+  try {
+    await auth.use('web').authenticate();
+    return {
+      id: auth.user?.id,
+      email: auth.user?.email,
+      profpic: auth.user?.profpic
+    };
+  } catch {
+    return { err: "Not logged in" };
+  }
+})
 
 Route.get('/login', async ({ ally }) => {
   return ally.use('google').redirectUrl();
 })
 
-Route.get('/google-callback', async ({ ally, auth, response, session }) => {
+Route.get('/logout', async ({ auth }) => {
+  await auth.use('web').logout();
+  return { mssg: "Logged out" };
+})
+
+Route.get('/google-callback', async ({ ally, auth, response }) => {
   const google = ally.use('google');
   
   // errors
@@ -36,9 +45,9 @@ Route.get('/google-callback', async ({ ally, auth, response, session }) => {
   const user = await User.firstOrCreate({
     email: googleUser.email!,
   }, {
-    accessToken: googleUser.token.token
+    accessToken: googleUser.token.token,
+    profpic: googleUser.avatarUrl!
   })
   await auth.use('web').login(user);
-  console.log(session.fresh)
   return response.redirect('http://localhost:5173');
 })

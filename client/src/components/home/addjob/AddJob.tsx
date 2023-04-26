@@ -3,13 +3,17 @@ import styles from './AddJob.module.css';
 import { useEffect, useRef, useState } from "react";
 import { TextField, InputAdornment, Button } from '@mui/material';
 import ImageUpload from "../../helpers/ImageUpload";
-import { Job } from "../../../interfaces";
-import axios from "../../config/axios";
+import { Job } from "../../../../interfaces";
+import axios from "../../../config/axios";
+import { useAuth } from "../../../context/AuthProvider";
+import { useNavigate, useParams } from "react-router-dom";
 
 const AddJob = () => {
 
   const [showPanel, setShowPanel] = useState(false);
   const panelRef = useRef<HTMLFormElement>(null!);
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   // param for submit call
   const [order, setOrder] = useState({
@@ -30,13 +34,13 @@ const AddJob = () => {
   const handleOrder = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
-    setOrder((values) => ({ ...values, [name]: value }));
+    setOrder((values) => ({ ...values, [name]: value.toLowerCase() }));
   };
 
   const handleAddr = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
-    setAddr((values) => ({ ...values, [name]: value }));
+    setAddr((values) => ({ ...values, [name]: value.toLowerCase() }));
   };
 
   // close panel by clicking outside
@@ -51,8 +55,13 @@ const AddJob = () => {
   // submit api call - add job
   const pushJob = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // if not logged in - redirect login
+    if (user?.id! <= 0) return navigate('/login');
+    // add job
     const params: Job = { ...order, addr: addr };
-    await axios.post('/user/addjob', { params: params });
+    await axios.post('/user/addjob', params);
+    // reload page
+    window.location.reload();
   }
 
   return (

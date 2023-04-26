@@ -1,7 +1,7 @@
 import { Button } from '@mui/material'
 import styles from './Login.module.css'
 import { FcGoogle } from 'react-icons/fc'
-import axios from '../config/axios'
+import axios from '../../config/axios'
 
 const Login = () => {
 

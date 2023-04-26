@@ -1,5 +1,5 @@
 import styles from './Job.module.css'
-import Img from '../assets/timetable.png';
+import Img from '../../assets/timetable.png';
 import { FaPhoneAlt, FaHome } from 'react-icons/fa'
 
 const Customer = () => {

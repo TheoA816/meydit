@@ -1,9 +1,13 @@
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
 import styles from './Home.module.css';
 import AddJob from './addjob/AddJob';
 import Header from './header/Header';
 import JobCard from './jobcard/JobCard';
 import Search from './search/Search';
+import { useEffect } from 'react';
+import { useAuth } from '../../context/AuthProvider';
+import axios from '../../config/axios';
+import Pages from './pages/Pages';
 
 interface Job {
   id: number,
@@ -25,7 +29,17 @@ interface Job {
 const Home = () => {
 
   const jobs: Job[] = useLoaderData() as Job[];
-  console.log(jobs)
+  const { user, setUser } = useAuth();
+  console.log(user)
+
+  useEffect(() => {
+    const checkLogin = async () => {
+      const res = (await axios.get('/isloggedin')).data;
+      if (res.err) setUser({ id: -1, email: "Invalid", profpic: "Invalid" });
+      else setUser({ id: res.id, email: res.email, profpic: res.profpic });
+    }
+    checkLogin();
+  }, [])
 
   return (
     <>
@@ -55,6 +69,7 @@ const Home = () => {
         }
 
         {/* Page directory */}
+        <Pages page={ parseInt(useParams().page!) } jobCount={jobs.length}/>
       </div>
 
     </>

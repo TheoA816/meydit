@@ -31,8 +31,14 @@
     font-size: 2em;
 }
 
-/* OPTIONS */
-.options {
+/* user */
+.user {
     display: flex;
     gap: 1em;
+}
+
+/* img */
+.img {
+    max-height: 1.5em;
+    clip-path: circle();
 }

@@ -1,7 +1,6 @@
 import Route from '@ioc:Adonis/Core/Route'
 import { schema } from '@ioc:Adonis/Core/Validator'
 import Address from 'App/Models/Address';
-import User from 'App/Models/Contact';
 import Job from 'App/Models/Job';
 
 const jobSchema = schema.create({
@@ -25,13 +24,7 @@ const jobSchema = schema.create({
  * 
  * checks payload and make sure it is valid
  */
-const payloadCheck = async (payload, auth) => {
-  // no contact
-  const contact = await User.findBy('id', payload.contact);
-  if (contact === null || contact.id !== auth.user?.id) {
-    return { err: "Error - Job has no contact person, creator undefined" };
-  }
-
+const checkAddr = async (payload) => {
   // check addr exist
   const addr = payload.addr;
   const matchingAddr = await Address.query()
@@ -52,15 +45,11 @@ Route.post('/user/addjob', async ({ auth, request, response }) => {
   const payload = await request.validate({ schema: jobSchema });
 
   // payload check
-  const res = await payloadCheck(payload, auth);
-  if (res.err) {
-    response.status(400).send(res.err);
-    return;
-  }
-
+  const res = await checkAddr(payload);
   // create job
   await Job.create({ ...payload, addr: res.addr });
-}).middleware('auth');
+  return response.send({ mssg: "Success!" });
+})
 
 Route.post('/user/editjob', async ({ auth, request, response }) => {
   const payload = await request.validate({ schema: jobSchema });
@@ -70,19 +59,15 @@ Route.post('/user/editjob', async ({ auth, request, response }) => {
     return;
   }
   // job check
-  const res = await payloadCheck(payload, auth);
-  if (res.err) {
-    response.status(400).send(res.err);
-    return;
-  }
+  const res = await checkAddr(payload);
 
   // update job
-  await Job.updateOrCreate({ id: payload.id }, { ...payload, addr: res.addr });
+  await Job.updateOrCreate({ id: payload.id }, { ...payload, addr: res.addr, contact: auth.user?.id });
+  return response.send({ mssg: "Success!" });
 }).middleware('auth');
 
-Route.get('/getjobs', async ({ request, session }) => {
+Route.get('/getjobs', async ({ request }) => {
   const page = parseInt(request.input('page'));
-  console.log(session.fresh)
   const jobsOnPage = await Job.query()
                               .offset(page * 9)
                               .limit(9)

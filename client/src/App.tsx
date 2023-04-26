@@ -1,7 +1,7 @@
-import Home from './home/Home'
-import Job from './job/Job'
+import Home from './components/home/Home'
+import Job from './components/job/Job'
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
-import Login from './login/Login';
+import Login from './components/login/Login';
 import axios from './config/axios';
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Navigate to={'/0'} replace />,
+      element: <Navigate to={'/0'} replace />
     },
     {
       path: "/:page",

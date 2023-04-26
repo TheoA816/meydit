@@ -15,6 +15,9 @@ export default class User extends BaseModel {
   public accessToken: string
 
   @column()
+  public profpic: string
+
+  @column()
   public addr: number
 
   @hasMany(() => Job, {
