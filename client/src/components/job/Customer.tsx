@@ -1,21 +1,21 @@
 import styles from './Job.module.css'
-import Img from '../../assets/timetable.png';
-import { FaPhoneAlt, FaHome } from 'react-icons/fa'
+import { useAuth } from '../../context/AuthProvider';
 
 const Customer = () => {
+
+  const { user } = useAuth();
+  console.log(user)
+
   return (
     <div className={styles.customer}>
 
       {/* IMAGE */}
-      <img className={styles.custImg} src={Img}/>
+      <img className={styles.custImg} src={user?.profpic}/>
 
       {/* DETAILS */}
       <div className={styles.custDetails}>
-        <span className={styles.title}>Name Here</span>
-        <div className={styles.custInfo}>
-          <span className={styles.info}><FaPhoneAlt/></span>
-          <span className={styles.info}><FaHome/></span>
-        </div>
+        <span className={styles.title}>{user?.name}</span>
+        <span className={styles.info}>{user?.email}</span>
       </div>
     </div>
   )

@@ -7,7 +7,8 @@ Route.get('/isloggedin', async({ auth }) => {
     return {
       id: auth.user?.id,
       email: auth.user?.email,
-      profpic: auth.user?.profpic
+      profpic: auth.user?.profpic,
+      name: auth.user?.name
     };
   } catch {
     return { err: "Not logged in" };
@@ -46,7 +47,8 @@ Route.get('/google-callback', async ({ ally, auth, response }) => {
     email: googleUser.email!,
   }, {
     accessToken: googleUser.token.token,
-    profpic: googleUser.avatarUrl!
+    profpic: googleUser.avatarUrl!,
+    name: googleUser.nickName
   })
   await auth.use('web').login(user);
   return response.redirect('http://localhost:5173');

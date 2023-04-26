@@ -19,16 +19,15 @@
 /* GLOBAL */
 .title {
     font-size: 2em;
-    font-weight: 300;
+    font-weight: 500;
 }
 
 
 /* IMAGE */
-.img {
+.imgContainer {
     position: relative;
     max-height: 100%;
     width: 30%;
-    border: black 1px solid;
 }
 
 /* DETAILS */
@@ -37,7 +36,6 @@
     width: 65%;
 
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
 }
 
@@ -47,10 +45,12 @@
     height: 30%;
     padding: 2.5%;
     box-sizing: border-box;
-    border: black 1px solid;
 
     display: flex;
     justify-content: space-between;
+
+    background-color: aliceblue;
+    border-radius: 25px;
 }
 
 .custImg {
@@ -65,16 +65,10 @@
     justify-content: space-between;
 }
 
-.custInfo {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-
 .info {
-
+    display: flex;
+    align-items: center;
 }
-
 
 /* ORDER DETAILS */
 .order {
@@ -84,13 +78,40 @@
 
     height: 65%;
     box-sizing: border-box;
-    padding: 5%;
-    border: black 1px solid;
+    padding: 2.5% 5%;
+
+    background-color: beige;
+    border-radius: 25px;
 }
 
 .orderData {
     display: flex;
+    align-items: flex-end;
     justify-content: space-between;
+}
+
+.orderDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.property {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.orderDesc {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 2.5% 0;
+}
+
+.descProperty {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5em;
 }
 
 .desc {

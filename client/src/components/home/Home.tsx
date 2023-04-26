@@ -18,8 +18,8 @@ const Home = () => {
   useEffect(() => {
     const checkLogin = async () => {
       const res = (await axios.get('/isloggedin')).data;
-      if (res.err) setUser({ id: -1, email: "Invalid", profpic: "Invalid" });
-      else setUser({ id: res.id, email: res.email, profpic: res.profpic });
+      if (res.err) setUser({ id: -1, email: "Invalid", profpic: "Invalid", name: "Invalid" });
+      else setUser({ id: res.id, email: res.email, profpic: res.profpic, name: res.name });
     }
     checkLogin();
   }, [])

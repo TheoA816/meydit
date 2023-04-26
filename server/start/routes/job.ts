@@ -42,12 +42,6 @@ const checkAddr = async (payload) => {
   return { addr: newAddr.id };
 }
 
-Route.get('/getjob', async ({ request }) => {
-  // create job
-  const job = await Job.findBy('id', request.param('id'));
-  return job;
-}).middleware('auth');
-
 Route.post('/user/addjob', async ({ auth, request, response }) => {
   const payload = await request.validate({ schema: jobSchema });
   // payload check
@@ -70,11 +64,3 @@ Route.post('/user/editjob', async ({ auth, request, response }) => {
   await Job.updateOrCreate({ id: payload.id }, { ...payload, addr: res.addr, contact: auth.user?.id });
   return response.send({ mssg: "Success!" });
 }).middleware('auth');
-
-Route.get('/getjobs', async ({ request }) => {
-  const page = parseInt(request.input('page'));
-  const jobsOnPage = await Job.query()
-                              .offset(page * 9)
-                              .limit(9)
-  return jobsOnPage;
-})

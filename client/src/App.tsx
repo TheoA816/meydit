@@ -30,8 +30,9 @@ function App() {
       path: "/job/:id",
       element: <Job />,
       loader: async ({ params }) => {
-        const job = await axios.get('getjob', { params: { id: params.id }});
-        return job;
+        const job = await axios.get('/getjob', { params: { id: params.id }});
+        console.log(job)
+        return job.data;
       }
     },
   ])

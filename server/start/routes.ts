@@ -21,7 +21,7 @@
 import './routes/auth';
 import './routes/job';
 import './routes/quote';
-import './routes/addr';
+import './routes/getters';
 
 import Route from '@ioc:Adonis/Core/Route'
 

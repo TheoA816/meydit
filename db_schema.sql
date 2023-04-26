@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS users (
     email TEXT NOT NULL,
     access_token TEXT NOT NULL,
     profpic TEXT NOT NULL,
+    name TEXT NOT NULL,
     phone TEXT,
     addr INT,
     FOREIGN KEY (addr) references addrs (id)
