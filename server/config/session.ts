@@ -85,7 +85,7 @@ export default sessionConfig({
   |
   */
   cookie: {
-    domain: 'meydit-be.onrender.com',
+    // domain: 'meydit-be.onrender.com',
     path: '/',
     httpOnly: true,
     secure: true,
