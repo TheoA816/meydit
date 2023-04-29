@@ -33,6 +33,7 @@ Route.post('/user/addquote', async ({ request, response }) => {
       .subject(`${maker?.name} just sent you a quote!`)
       .htmlView('emails/notif', { maker: maker?.name, url: `${Env.get('FRONTEND_HOST')}/job/${payload.job}` })
   })
+  return { mssg: "Success" }
 })
 
 Route.post('/user/editquote', async ({ request, response }) => {
@@ -43,3 +44,14 @@ Route.post('/user/editquote', async ({ request, response }) => {
   }
   await Quote.updateOrCreate({ id: payload.id }, payload);
 }).middleware('auth');
+
+Route.delete('/user/delquote', async ({ request, response }) => {
+  const id = parseInt(request.input('id'));
+  const quote = await Quote.findBy('id', id);
+  if (quote === null) {
+    response.status(400).send("Quote does not exist");
+    return;
+  }
+  quote.delete();
+  return { mssg: "success" };
+}).middleware('auth')

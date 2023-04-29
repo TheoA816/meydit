@@ -1,3 +1,10 @@
+.home {
+    position: fixed;
+    top: 0;
+    right: 0;
+    font-size: 2em;
+}
+
 .jobContainer {
     display: flex;
     justify-content: space-between;
@@ -86,53 +93,6 @@
 .title {
     font-size: 3em;
     font-weight: 500;
-}
-
-/* ORDER DETAILS */
-.order {
-    display: flex;
-    flex-direction: column;
-    gap: 10%;
-
-    box-sizing: border-box;
-    padding: 2.5% 5%;
-
-    background-color: beige;
-    border-radius: 25px;
-}
-
-.orderData {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px black solid;
-}
-
-.ordTitle {
-    font-size: 5em;
-    font-weight: 900;
-}
-
-.property {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 1.5em;
-}
-
-.orderDetail {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-
-    padding: 2.5% 0;
-}
-
-.descProperty {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 1.5em;
-}
-
-.desc {
-    overflow-y: scroll;
 }
 
 /* QUOTE */

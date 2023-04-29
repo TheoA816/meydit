@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from '../../../config/axios';
 import { Quote } from '../../../../interfaces';
 import { DatePicker } from '@mui/x-date-pickers';
+import { AxiosError } from 'axios';
 
 interface addQuoteProps {
   jobId: number
@@ -49,8 +50,12 @@ const AddQuote = ({ jobId }: addQuoteProps) => {
     // if not logged in - redirect login
     if (user?.id! <= 0) return navigate('/login');
     // add job
-    const params = { ...quote, contact: user?.id };console.log(params);
-    await axios.post('/user/addquote', params);
+    const params = { ...quote, contact: user?.id };
+    try {
+      await axios.post('/user/addquote', params);
+    } catch (e: any) {
+      return alert(e.response.data);
+    }
     // reload page
     window.location.reload();
   }

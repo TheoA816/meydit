@@ -1,6 +1,24 @@
 .container {
     display: flex;
+    align-items: center;
     gap: 5vw;
 
     font-size: 1.5em;
+}
+
+.search {
+    cursor: pointer;
+}
+
+.tag {
+    padding: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.tagOn {
+    background-color: aliceblue;
+    border-radius: 8px;
+    transition: 0.5s;
 }

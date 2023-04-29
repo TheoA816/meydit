@@ -33,11 +33,14 @@ const checkAddr = async (payload) => {
                       .where('state', addr.state)
                       .where('country', addr.country)
                       .where('zipcode', addr.zipcode)
+  console.log(matchingAddr[0])
+  console.log(addr)
   if (matchingAddr.length !== 0) {
     return { addr: matchingAddr[0].id };
   }
 
   // add new addr
+  delete addr.id;
   const newAddr = await Address.create(addr);
   return { addr: newAddr.id };
 }
@@ -64,3 +67,14 @@ Route.post('/user/editjob', async ({ auth, request, response }) => {
   await Job.updateOrCreate({ id: payload.id }, { ...payload, addr: res.addr, contact: auth.user?.id });
   return response.send({ mssg: "Success!" });
 }).middleware('auth');
+
+Route.delete('/user/deljob', async ({ request, response }) => {
+  const id = parseInt(request.input('id'));
+  const job = await Job.findBy('id', id);
+  if (job === null) {
+    response.status(400).send("Job does not exist");
+    return;
+  }
+  job.delete();
+  return { mssg: "success" };
+}).middleware('auth')

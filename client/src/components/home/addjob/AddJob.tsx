@@ -69,7 +69,6 @@ const AddJob = () => {
     <>
       <div className={styles.container}>
         <FaPlus onClick={() => setShowPanel(!showPanel)}/>
-        <span>New Quote</span>
       </div>
 
       { showPanel && 

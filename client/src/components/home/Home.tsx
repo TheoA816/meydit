@@ -4,7 +4,7 @@ import AddJob from './addjob/AddJob';
 import Header from './header/Header';
 import JobCard from './jobcard/JobCard';
 import Search from './search/Search';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthProvider';
 import axios from '../../config/axios';
 import Pages from './pages/Pages';
@@ -12,7 +12,8 @@ import { Job } from '../../../interfaces';
 
 const Home = () => {
 
-  const jobs: Job[] = useLoaderData() as Job[];
+  const fullJobList: Job[] = useLoaderData() as Job[];
+  const [jobs, setJobs] = useState(fullJobList.slice(0, 9));
   const { user, setUser } = useAuth();
 
   useEffect(() => {
@@ -35,7 +36,7 @@ const Home = () => {
 
         {/* Search Header */}
         <div className={styles.search}>
-          <Search/>
+          <Search jobs={fullJobList} setJobs={setJobs}/>
           <AddJob/>
         </div>
 

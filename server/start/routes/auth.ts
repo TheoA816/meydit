@@ -19,10 +19,10 @@ Route.get('/login', async ({ ally }) => {
   return ally.use('google').redirectUrl();
 })
 
-Route.get('/logout', async ({ auth }) => {
+Route.get('/logout', async ({ auth, response }) => {
   await auth.use('web').logout();
-  return { mssg: "Logged out" };
-})
+  return response.clearCookie('adonis-session');
+}).middleware('auth')
 
 Route.get('/google-callback', async ({ ally, auth, response }) => {
   const google = ally.use('google');

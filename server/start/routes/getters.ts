@@ -10,16 +10,14 @@ Route.get('/getaddr', async ({ request }) => {
   return addr;
 });
 
+// get enough for one page
 Route.get('/getjobs', async ({ request }) => {
   const page = parseInt(request.input('page'));
-  const jobsOnPage = await Job.query()
-                              .offset(page * 9)
-                              .limit(9)
+  const jobsOnPage = await Job.query();
   return jobsOnPage;
 })
 
 Route.get('/getjob', async ({ request }) => {
-  // create job
   const id = parseInt(request.input('id'));
   const job = await Job.findBy('id', id);
   const addr = await Address.findBy('id', job?.addr)
@@ -27,7 +25,6 @@ Route.get('/getjob', async ({ request }) => {
 })
 
 Route.get('/getuser', async ({ request }) => {
-  // create job
   const id = parseInt(request.input('id'));
   const user = await User.findBy('id', id);
   return user;

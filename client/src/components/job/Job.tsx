@@ -1,26 +1,29 @@
 import styles from './Job.module.css'
 import Customer from './Customer'
-import Order from './Order'
+import Order from './order/Order'
 import QuoteCard from './quote/QuoteCard'
 import AddQuote from './addquote/AddQuote'
 import { useLoaderData } from 'react-router-dom'
 import { Job as JobType, Quote } from '../../../interfaces'
-import { FaGreaterThan, FaLessThan } from 'react-icons/fa'
+import { FaGreaterThan, FaHome, FaLessThan } from 'react-icons/fa'
 import { useEffect, useState } from 'react'
 import axios from '../../config/axios'
 import { useAuth } from '../../context/AuthProvider'
+import { Link } from 'react-router-dom'
 
 interface LoadedData {
   job: JobType,
-  quotes: Quote[]
+  quoteList: Quote[]
 }
 
 const Job = () => {
 
-  const { job, quotes } = useLoaderData() as LoadedData;
+  const { job, quoteList } = useLoaderData() as LoadedData;
   const [img, setImg] = useState(0);
   const { user, setUser } = useAuth();
 
+  const [quotes, setQuotes] = useState<Quote[]>([]);
+  
   useEffect(() => {
     const checkLogin = async () => {
       const res = (await axios.get('/isloggedin')).data;
@@ -28,6 +31,7 @@ const Job = () => {
       else setUser({ id: res.id, email: res.email, profpic: res.profpic, name: res.name });
     }
     checkLogin();
+    setQuotes(quoteList);
   }, [])
 
   const incrImg = () => {
@@ -42,6 +46,7 @@ const Job = () => {
     job ?
       <>
       {/* JOB DETAILS */}
+      <Link to={'/'}><FaHome className={styles.home}/></Link>
       <div className={styles.jobContainer}>
         {/* IMAGE */}
         <div className={styles.imgContainer}>
@@ -64,7 +69,9 @@ const Job = () => {
           <span className={styles.title}>Quotes</span>
           <AddQuote jobId={job.id!}/>
         </div>
-        { quotes.map((quote, idx) => <QuoteCard quote={quote} key={quote.id}/>) }
+        { quotes.map((quote, idx) => 
+          <QuoteCard quotes={quotes} setQuotes={setQuotes} idx={idx} key={quote.id}/>)
+        }
       </div>
     </>
   :

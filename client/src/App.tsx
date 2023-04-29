@@ -34,7 +34,7 @@ function App() {
         const quotes = await axios.get('getquotes', { params: { job: params.id }});
         return {
           job: job.data,
-          quotes: quotes.data
+          quoteList: quotes.data
         }
       }
     },

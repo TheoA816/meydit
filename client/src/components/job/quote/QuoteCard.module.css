@@ -9,6 +9,13 @@
     background-color: aliceblue;
 
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.details {
+    height: 100%;
+    display: flex;
     gap: 30px;
     align-items: center;
 }
@@ -23,8 +30,18 @@
     font-size: 2em;
 }
 
+.detailContainer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
 .property {
     font-family: 'Courier New', Courier, monospace;
+}
+
+.data {
+    font-size: 1em;
 }
 
 .img {
@@ -32,6 +49,12 @@
     clip-path: circle();
 }
 
-.data {
-    font-size: 1em;
+.modify {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.icon {
+    cursor: pointer;
 }
