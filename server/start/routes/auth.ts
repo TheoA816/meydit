@@ -5,6 +5,8 @@ import Env from '@ioc:Adonis/Core/Env'
 Route.get('/isloggedin', async({ auth }) => {
   try {
     await auth.use('web').authenticate();
+    console.log("TRY")
+    console.log(auth.user);
     return {
       id: auth.user?.id,
       email: auth.user?.email,
@@ -12,6 +14,7 @@ Route.get('/isloggedin', async({ auth }) => {
       name: auth.user?.name
     };
   } catch {
+    console.log(auth.user);
     return { err: "Not logged in" };
   }
 })
@@ -52,5 +55,6 @@ Route.get('/google-callback', async ({ ally, auth, response }) => {
     name: googleUser.nickName
   })
   await auth.use('web').login(user);
+  console.log(auth.user);
   return response.redirect(`${Env.get('FRONTEND_HOST')}`);
 })
