@@ -85,7 +85,7 @@ export default sessionConfig({
   |
   */
   cookie: {
-    domain: '.onrender.com',
+    domain: 'onrender.com',
     path: '/',
     httpOnly: true,
     secure: true,
