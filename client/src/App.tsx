@@ -31,8 +31,11 @@ function App() {
       element: <Job />,
       loader: async ({ params }) => {
         const job = await axios.get('/getjob', { params: { id: params.id }});
-        console.log(job)
-        return job.data;
+        const quotes = await axios.get('getquotes', { params: { job: params.id }});
+        return {
+          job: job.data,
+          quotes: quotes.data
+        }
       }
     },
   ])

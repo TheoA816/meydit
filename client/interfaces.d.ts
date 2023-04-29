@@ -24,6 +24,14 @@ export interface User {
   name: string
 };
 
+export interface Quote {
+  id?: number,
+  job: number,
+  contact: number,
+  cost?: number,
+  finishby?: string
+}
+
 export interface myFile {
   file: File
   url: string

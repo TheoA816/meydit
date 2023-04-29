@@ -36,6 +36,7 @@
     padding: 2em;
 
     overflow-y: auto;
+    z-index: 500;
 
     display: flex;
     flex-direction: column;

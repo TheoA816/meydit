@@ -1,7 +1,9 @@
 import Route from '@ioc:Adonis/Core/Route'
 import Address from 'App/Models/Address';
-import User from 'App/Models/Contact';
+import User from 'App/Models/User';
 import Job from 'App/Models/Job';
+import Quote from 'App/Models/Quote';
+import { format } from 'date-fns'
 
 Route.get('/getaddr', async ({ request }) => {
   let addr = await Address.findBy('id', request.input('id'));
@@ -29,4 +31,16 @@ Route.get('/getuser', async ({ request }) => {
   const id = parseInt(request.input('id'));
   const user = await User.findBy('id', id);
   return user;
-}).middleware('auth');
+})
+
+Route.get('/getquotes', async ({ request }) => {
+  const job = parseInt(request.input('job'));
+  const quotesOnJob = await Quote.query()
+                              .where('job', job);
+  // format date
+  quotesOnJob.map((quote) => {
+    const date = new Date(quote.finishby);
+    quote.finishby = format(date, 'd MMM y');
+  })
+  return quotesOnJob;
+})

@@ -42,3 +42,16 @@
     max-height: 1.5em;
     clip-path: circle();
 }
+
+/* account */
+.account {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.logoutContainer {
+    background-color: aliceblue;
+    padding: 10px;
+    border-radius: 8px;
+}

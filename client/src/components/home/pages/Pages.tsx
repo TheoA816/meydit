@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import styles from './Pages.module.css'
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
+import { FaGreaterThan, FaLessThan } from 'react-icons/fa'
 
 interface pageProps {
   page: number,
@@ -13,13 +13,13 @@ const Pages = ({ page, jobCount }: pageProps) => {
     <div className={styles.container}>
 
       {page != 0 && <Link to={`/${(page - 1)}`}>
-        <FaArrowLeft className={styles.button}/>
+        <FaLessThan className={styles.button}/>
       </Link>}
 
       {!(page == 0 && jobCount == 0) && <span className={styles.button}>{ page }</span>}
 
       {jobCount == 9 && <Link to={`/${(page + 1)}`}>
-        <FaArrowRight className={styles.button}/>
+        <FaGreaterThan className={styles.button}/>
       </Link>}
 
     </div>
