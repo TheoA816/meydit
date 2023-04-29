@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3333";
+const BASE_URL = "https://meydit-be.onrender.com";
 
 export default axios.create({
   baseURL: BASE_URL,
