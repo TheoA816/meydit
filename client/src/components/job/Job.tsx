@@ -20,7 +20,6 @@ const Job = () => {
   const { job, quotes } = useLoaderData() as LoadedData;
   const [img, setImg] = useState(0);
   const { user, setUser } = useAuth();
-  console.log(user)
 
   useEffect(() => {
     const checkLogin = async () => {

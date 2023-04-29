@@ -53,4 +53,6 @@ export default mailConfig({
 			}
     },
   },
+
+  from: Env.get('SMTP_USERNAME'),
 })
