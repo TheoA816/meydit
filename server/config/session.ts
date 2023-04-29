@@ -89,7 +89,7 @@ export default sessionConfig({
     path: '/',
     httpOnly: true,
     secure: true,
-    sameSite: 'none',
+    sameSite: 'lax',
   },
 
   /*
