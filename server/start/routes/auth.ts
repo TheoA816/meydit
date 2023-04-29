@@ -1,5 +1,6 @@
 import Route from '@ioc:Adonis/Core/Route'
 import User from 'App/Models/User'
+import Env from '@ioc:Adonis/Core/Env'
 
 Route.get('/isloggedin', async({ auth }) => {
   try {
@@ -51,5 +52,5 @@ Route.get('/google-callback', async ({ ally, auth, response }) => {
     name: googleUser.nickName
   })
   await auth.use('web').login(user);
-  return response.redirect('http://localhost:5173');
+  return response.redirect(`${Env.get('FRONTEND_HOST')}`);
 })
