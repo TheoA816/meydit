@@ -26,7 +26,15 @@
     display: flex;
     gap: 10px;
     align-items: center;
+}
 
+.profileDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.username {
     font-size: 2em;
 }
 
@@ -38,10 +46,6 @@
 
 .property {
     font-family: 'Courier New', Courier, monospace;
-}
-
-.data {
-    font-size: 1em;
 }
 
 .img {
