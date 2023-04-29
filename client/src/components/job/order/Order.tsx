@@ -5,6 +5,7 @@ import axios from '../../../config/axios'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { Button, TextField } from '@mui/material'
+import { useAuth } from '../../../context/AuthProvider'
 
 interface orderProps {
   job: Job
@@ -13,6 +14,7 @@ interface orderProps {
 const Order = ({ job }: orderProps) => {
 
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [curJob, setCurjob] = useState(job);
   const [addr, setAddr] = useState(job.addr);
   const [edit, setEdit] = useState(false);
@@ -48,10 +50,12 @@ const Order = ({ job }: orderProps) => {
       {/* order deets */}
       <div className={styles.titleContainer}>
         <span className={styles.ordTitle}>{job.clothing}</span>
-        <div className={styles.modify}>
-          <FaPencilAlt onClick={() => setEdit(!edit)} className={styles.icon}/>
-          <FaTrash onClick={delJob} className={styles.icon}/>
-        </div>
+        { job?.contact === user?.id &&
+          <div className={styles.modify}>
+            <FaPencilAlt onClick={() => setEdit(!edit)} className={styles.icon}/>
+            <FaTrash onClick={delJob} className={styles.icon}/>
+          </div>
+        }
       </div>
 
       <div className={styles.orderDetail}>
