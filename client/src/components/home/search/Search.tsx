@@ -62,7 +62,7 @@ const Search = ({ jobs, setJobs }: searchProps) => {
   }
 
   useEffect(() => {
-    filter((document.getElementById('search') as HTMLInputElement).value.toLocaleLowerCase()!);
+    filter((document.getElementById('search') as HTMLInputElement)?.value.toLocaleLowerCase()!);
   }, [tag])
 
   return (

@@ -17,6 +17,10 @@ const Home = () => {
   const { user, setUser } = useAuth();
 
   useEffect(() => {
+    setJobs(fullJobList.slice(0, 9));
+  }, [fullJobList])
+
+  useEffect(() => {
     const checkLogin = async () => {
       const res = (await axios.get('/isloggedin')).data;
       if (res.err) setUser({ id: -1, email: "Invalid", profpic: "Invalid", name: "Invalid" });

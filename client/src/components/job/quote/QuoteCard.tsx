@@ -55,7 +55,11 @@ const QuoteCard = ({ quotes, setQuotes, idx }: quoteCardProps) => {
       <div className={styles.details}>
         <div className={styles.profile}>
           <img className={styles.img} src={maker?.profpic} referrerPolicy='no-referrer'/>
-          <span className={styles.data}>{maker?.name}</span>
+
+          <div className={styles.profileDetails}>
+            <span className={styles.username}>{maker?.name}</span>
+            <span>{maker?.email}</span>
+          </div>
         </div>
 
         <div className={styles.detailContainer}>
