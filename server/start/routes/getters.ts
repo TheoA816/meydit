@@ -11,8 +11,7 @@ Route.get('/getaddr', async ({ request }) => {
 });
 
 // get enough for one page
-Route.get('/getjobs', async ({ request }) => {
-  const page = parseInt(request.input('page'));
+Route.get('/getjobs', async () => {
   const jobsOnPage = await Job.query();
   return jobsOnPage;
 })
