@@ -7,6 +7,7 @@ const Login = () => {
 
   const loginRedirect = async () => {
     const googleUrl = await axios.get('/login');
+    console.log(googleUrl)
     window.location.href = googleUrl.data;
   }
 
