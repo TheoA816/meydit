@@ -1,9 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
 
 .header {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100vw;
 
     display: grid;
@@ -25,13 +22,36 @@
     justify-self: flex-end;
 }
 
+.header > span {
+    text-align: center;
+}
+
 .title {
     font-family: 'Montserrat', sans-serif;
     font-size: 2em;
 }
 
-/* OPTIONS */
-.options {
+/* user */
+.user {
     display: flex;
     gap: 1em;
+}
+
+/* img */
+.img {
+    max-height: 1.5em;
+    clip-path: circle();
+}
+
+/* account */
+.account {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.logoutContainer {
+    background-color: aliceblue;
+    padding: 10px;
+    border-radius: 8px;
 }

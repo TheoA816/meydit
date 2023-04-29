@@ -1,0 +1,60 @@
+.container {
+    position: relative;
+    height: 100px;
+    width: 100%;
+    padding: 2%;
+    box-sizing: border-box;
+
+    border-radius: 1em;
+    background-color: aliceblue;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.details {
+    height: 100%;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.profile {
+    height: 100%;
+
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    font-size: 2em;
+}
+
+.detailContainer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.property {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.data {
+    font-size: 1em;
+}
+
+.img {
+    max-height: 90%;
+    clip-path: circle();
+}
+
+.modify {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.icon {
+    cursor: pointer;
+}

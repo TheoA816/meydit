@@ -1,0 +1,26 @@
+.container {
+    margin: 5vh auto;
+    width: 80vw;
+}
+
+.search {
+    margin-bottom: 10vh;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.jobsboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.err {
+    font-size: 3em;
+    
+    position: relative;
+    left: 50%;
+    width: fit-content;
+    transform: translateX(-50%);
+}

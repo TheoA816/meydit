@@ -1,14 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Header from './components/header/Header'
+import Home from './components/home/Home'
+import Job from './components/job/Job'
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import Login from './components/login/Login';
+import axios from './config/axios';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Navigate to={'/0'} replace />
+    },
+    {
+      path: "/:page",
+      element: <Home />,
+      loader: async ({ params }) => {
+        const jobs = await axios.get('/getjobs', { params: { page: params.page }});
+        for (const job of jobs.data) {
+          job.addr = (await axios.get('/getaddr', { params: { id: job.addr }})).data
+        }
+        return jobs.data;
+      }
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/job/:id",
+      element: <Job />,
+      loader: async ({ params }) => {
+        const job = await axios.get('/getjob', { params: { id: params.id }});
+        const quotes = await axios.get('getquotes', { params: { job: params.id }});
+        return {
+          job: job.data,
+          quoteList: quotes.data
+        }
+      }
+    },
+  ])
 
   return (
-    <Header/>
+    <>
+      <RouterProvider router={router}/>
+    </>
   )
 }
 
