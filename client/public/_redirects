@@ -1,2 +1,2 @@
 /api/* https://meydit-be.onrender.com/:splat 200
-/* /index.html 200
+/* https://meydit-fe.netlify.app/index.html 200
