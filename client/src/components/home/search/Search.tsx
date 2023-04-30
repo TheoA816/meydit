@@ -3,7 +3,6 @@ import styles from './Search.module.css';
 import { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import { Job } from "../../../../interfaces";
-import axios from "../../../config/axios";
 import { useParams } from "react-router-dom";
 
 interface searchProps {
@@ -21,6 +20,7 @@ const Search = ({ jobs, setJobs }: searchProps) => {
 
   const [search, setSearch] = useState(false);
   const [tag, setTag] = useState(TAG.CLOTHING);
+  const offset = parseInt(useParams().page!) * 9;
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value.toLocaleLowerCase();
@@ -29,24 +29,24 @@ const Search = ({ jobs, setJobs }: searchProps) => {
 
   const filter = (query: string) => {
     if (tag == TAG.CLOTHING) {
-      setJobs(jobs.filter((job) => job.clothing.includes(query)).slice(0, 9))
+      setJobs(jobs.filter((job) => job.clothing.includes(query)).slice(offset, offset + 9))
     }
 
     else if (tag == TAG.CITY) {
-      setJobs(jobs.filter((job) => job.addr.city.includes(query)).slice(0, 9))
+      setJobs(jobs.filter((job) => job.addr.city.includes(query)).slice(offset, offset + 9))
     }
 
     else if (tag == TAG.COUNTRY) {
-      setJobs(jobs.filter((job) => job.addr.country.includes(query)).slice(0, 9))
+      setJobs(jobs.filter((job) => job.addr.country.includes(query)).slice(offset, offset + 9))
     }
 
     else if (query.length === 0) {
-      setJobs(jobs.slice(0, 9));
+      setJobs(jobs.slice(offset, offset + 9));
     }
   }
 
   const toggleSearch = () => {
-    if (search) setJobs(jobs.slice(0, 9));
+    if (search) setJobs(jobs.slice(offset, offset + 9));
     setSearch(!search)
   }
 
@@ -62,7 +62,7 @@ const Search = ({ jobs, setJobs }: searchProps) => {
   }
 
   useEffect(() => {
-    filter((document.getElementById('search') as HTMLInputElement)?.value.toLocaleLowerCase()!);
+    if (search) filter((document.getElementById('search') as HTMLInputElement)?.value.toLocaleLowerCase()!);
   }, [tag])
 
   return (

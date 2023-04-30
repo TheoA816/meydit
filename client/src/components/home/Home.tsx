@@ -15,9 +15,11 @@ const Home = () => {
   const fullJobList: Job[] = useLoaderData() as Job[];
   const [jobs, setJobs] = useState(fullJobList.slice(0, 9));
   const { user, setUser } = useAuth();
+  const page = parseInt(useParams().page!);
 
   useEffect(() => {
-    setJobs(fullJobList.slice(0, 9));
+    const offset = page * 9;
+    setJobs(fullJobList.slice(offset, offset + 9));
   }, [fullJobList])
 
   useEffect(() => {

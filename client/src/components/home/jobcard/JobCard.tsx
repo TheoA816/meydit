@@ -1,4 +1,4 @@
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Job } from '../../../../interfaces';
 import NoImage from '../../../assets/noimage.png'
 import styles from './JobCard.module.css';
@@ -14,7 +14,7 @@ const JobCard = ({ job }: JobCardProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (job.images[0]) setSrc(job.images[0])
+    if (job.images[0]) setSrc(job.images[0]);
   }, [])
 
   const onClick = () => {
