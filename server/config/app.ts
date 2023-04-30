@@ -77,7 +77,7 @@ export const http: ServerConfig = {
   | headers.
   |
   */
-  trustProxy: proxyAddr.compile(Env.get('HOST')),
+  trustProxy: proxyAddr.compile('0.0.0.0/0'),
 
   /*
   |--------------------------------------------------------------------------
