@@ -55,5 +55,5 @@ Route.get('/google-callback', async ({ ally, auth, response }) => {
     name: googleUser.nickName
   })
   await auth.use('web').login(user);
-  return response.redirect(`${Env.get('FRONTEND_HOST')}`);
+  return response.redirect().toPath(`${Env.get('FRONTEND_HOST')}`);
 })

@@ -102,12 +102,12 @@ export const http: ServerConfig = {
   |--------------------------------------------------------------------------
   */
   cookie: {
-    domain: 'meydit-be.onrender.com',
+    domain: '',
     path: '/',
     maxAge: '2h',
     httpOnly: true,
     secure: true,
-    sameSite: 'lax',
+    sameSite: 'none',
   },
 
   /*
