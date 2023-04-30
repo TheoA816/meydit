@@ -44,7 +44,7 @@ const corsConfig: CorsConfig = {
   |                     one of the above values.
   |
   */
-  origin: '*',
+  origin: ['https://meydit-fe.onrender.com', 'http://localhost:5173'],
 
   /*
   |--------------------------------------------------------------------------
